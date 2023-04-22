@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'MovieZone';
+  onTrue: boolean = true
+
+  onClick(event: boolean) {
+    this.onTrue = !event
+  }
 }

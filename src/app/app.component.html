@@ -1,1 +1,17 @@
-<app-navbar></app-navbar>
+<app-navbar (newItemEvent)="onClick($event)"></app-navbar>
+
+<div class="h-[calc(100vh-4rem)] flex">
+  <app-side-bar
+    class="md:w-[15rem]"
+    [ngClass]="{
+      'max-md:hidden': onTrue,
+      'max-md:fixed': !onTrue,
+      'max-md:top-24': !onTrue,
+      'z-50': !onTrue,
+      'h-[calc(100vh-4rem)]': !onTrue
+    }"
+    (sideBar)="onClick($event)"
+  ></app-side-bar>
+
+  <router-outlet></router-outlet>
+</div>
