@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { OwlOptions } from 'ngx-owl-carousel-o';
 import { BehaviorSubject, Observable, combineLatest, map, switchMap } from 'rxjs';
 import { Movie } from 'src/app/modals/trending';
+import { PopularMovies, popular } from 'src/app/models/popular-movies';
 import { TmdbService } from 'src/app/services/tmdb.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { TmdbService } from 'src/app/services/tmdb.service';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-
+  popular: Observable<popular[]>
   trending?: Observable<Movie[]>
   imageUrl: string = 'https://image.tmdb.org/t/p/w500/';
   imageUrl1: string = 'https://image.tmdb.org/t/p/original/';
@@ -26,6 +27,7 @@ export class HomeComponent {
 
   constructor(private service: TmdbService) {
     this.trending = this.filter.pipe(switchMap(({ time, show }) => this.service.getTrending(time, show)))
+    this.popular = this.service.getPopular()
   }
   customOptions: OwlOptions = {
     loop: true,
@@ -53,7 +55,6 @@ export class HomeComponent {
   }
   onShow(data: 'tv' | 'movie') {
     this.$show.next(data)
-    console.log(data)
   }
 
 }

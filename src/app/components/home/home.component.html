@@ -152,7 +152,7 @@
       <div
         class="flex items-center w-full gap-6 overflow-auto md:h-96 max-md:py-4"
       >
-        <div *ngFor="let movie of trending | async">
+        <div *ngFor="let movie of popular | async">
           <div
             [routerLink]="['/details', 'movie', movie.id]"
             class="w-72 h-[22.5rem] overflow-hidden rounded-xl flex flex-col"

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { User, Users } from '../modals/user';
 import { Observable, map } from 'rxjs';
 import { Movies } from '../modals/trending';
+import { PopularMovies, popular } from '../models/popular-movies';
 @Injectable({
   providedIn: 'root'
 })
@@ -19,14 +20,19 @@ export class TmdbService {
   }
 
   getTrending(Data: 'day' | 'week', Show: 'tv' | 'movie'): Observable<Movie[]> {
-    return this.http.get<Movies>(`https://api.themoviedb.org/3/trending/${Show}/${Data}`, {
+    return this.http.get<Movies>(`${this.base_url}/trending/${Show}/${Data}`, {
       params: {
         api_key: this.api_key
       }
     }).pipe(map(res => res.results))
   }
+  getPopular(): Observable<popular[]> {
+    return this.http.get<PopularMovies>(`${this.base_url}/movie/popular`,
+      { params: { api_key: this.api_key } }).pipe(map(res => res.results))
+  }
 
 }
+
 
 
 
