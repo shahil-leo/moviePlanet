@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User } from 'src/app/modals/user';
+import { User, Users } from 'src/app/modals/user';
+import { TmdbService } from 'src/app/services/tmdb.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -10,7 +11,7 @@ import { User } from 'src/app/modals/user';
 export class SideBarComponent {
 
 
-
+  constructor(private userService: TmdbService) { }
   users?: Observable<User[]>;
   upComming: any
 
@@ -21,9 +22,8 @@ export class SideBarComponent {
     this.sideBar.emit(this.onSide)
   }
 
-
-
   ngOnInit(): void {
+    this.users = this.userService.getUsers()
   }
   onUpcoming() {
   }

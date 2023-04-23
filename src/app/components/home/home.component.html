@@ -1,0 +1,220 @@
+<div
+  class="md:w-[calc(100vw-15rem)] md:h-[calc(100vh-4rem)] w-screen h-screen overflow-auto bg-gray-950 md:px-4 px-1 bg-gradient-to-r from-indigo-950 via-slate-950 to-indigo-950 mt-24 md:mt-16"
+>
+  <div class="flex flex-col w-full md:w-full md:h-full">
+    <div
+      class="relative w-full overflow-hidden transition-all aspect-video md:rounded-b-2xl"
+    >
+      <owl-carousel-o [options]="customOptions">
+        <ng-container *ngFor="let movie of trending | async">
+          <ng-template class="slide" carouselSlide>
+            <img
+              src="{{ imageUrl }}/{{ movie.poster_path }}"
+              class="md:w-full md:h-[30rem] opacity-70 object-cover"
+            />
+            <p
+              class="px-4 text-xl font-bold text-red-600 md:text-3xl md:absolute md:bottom-28 md:left-20 md:px-0"
+            >
+              {{ movie.title }}
+            </p>
+            <button
+              class="w-full px-8 py-2 text-xl font-bold text-white bg-purple-600 rounded-md md:w-fit md:h-fit md:rounded-xl md:absolute md:bottom-14 md:left-20"
+            >
+              Watch
+            </button>
+            <div
+              class="absolute flex flex-col font-bold text-white md:top-20 md:left-20 top-5 left-4 md:gap-2"
+            >
+              <p class="text-2xl md:text-4xl">Welcome</p>
+              <p class="text-xl md:text-3xl">
+                Millions of movies, TV shows and people to discover. Explore
+                now.
+              </p>
+            </div>
+          </ng-template>
+        </ng-container>
+      </owl-carousel-o>
+    </div>
+
+    <!-- ------------------------------------Trending------------------------------------------ -->
+
+    <div
+      class="flex flex-col w-full gap-4 h-1/2 md:rounded-t-2xl"
+      *ngIf="$times | async as times"
+    >
+      <div
+        *ngIf="$show | async as show"
+        class="flex items-center w-full gap-4 px-4 py-2 overflow-auto md:w-fit md:h-fit h-fit md:pt-4 md:px-0 md:py-1"
+      >
+        <p
+          class="text-lg font-bold text-white border-b-4 border-red-600 md:text-xl"
+        >
+          Trending
+        </p>
+        <button
+          (click)="onClick(times === 'week' ? 'day' : 'week')"
+          class="relative flex items-center justify-between px-4 font-bold text-gray-100 rounded-full bg-gray-950 md:w-56 w-44 h-9"
+        >
+          <span class="z-30">Today</span>
+          <span class="z-30">This week</span>
+          <span
+            class="md:w-28 w-[5.5rem] h-9 rounded-full absolute top-0 left-0 bg-purple-600/75 transition-all"
+          ></span>
+        </button>
+        <button
+          (click)="onShow(show === 'tv' ? 'movie' : 'tv')"
+          class="flex items-center justify-center font-bold text-white rounded-md bg-purple-600/75 md:w-28 w-14 h-9 md:rounded-3xl"
+        >
+          {{ show }}
+        </button>
+      </div>
+
+      <div class="flex items-center w-full gap-6 overflow-auto md:h-96">
+        <div *ngFor="let movie of trending | async">
+          <div
+            class="w-72 h-[22.5rem] overflow-hidden rounded-xl flex flex-col"
+          >
+            <img
+              src="{{ imageUrl }}/{{ movie.poster_path }}"
+              class="w-full h-[60%] object-cover"
+            />
+            <div
+              class="rounded-lg h-[40%] p-2 bg-gradient-to-r from-indigo-800 via-gray-900 to-gray-900 flex flex-col shadow-2xl"
+            >
+              <div>
+                <h5
+                  *ngIf="movie.title"
+                  class="h-12 overflow-hidden text-2xl font-bold leading-none text-white text-ellipsis"
+                >
+                  {{ movie.title }}
+                </h5>
+
+                <span class="text-xs leading-none text-gray-400"
+                  >Rating-{{ movie.vote_average }}</span
+                >
+              </div>
+              <div class="flex items-center justify-between w-full h-fit">
+                <div class="text-lg font-light text-white">
+                  {{ movie.release_date }}
+                </div>
+                <div class="relative font-bold text-white">
+                  <svg
+                    class="rotate-[-90deg]"
+                    width="47px"
+                    height="47px"
+                    viewBox="0 0 100 100"
+                  >
+                    <circle
+                      cx="52.5"
+                      cy="52.5"
+                      r="50"
+                      fill="transparent"
+                      [attr.stroke-dasharray]="314"
+                      stroke-width="9"
+                      class="scale-[0.95]"
+                    />
+                    <circle
+                      cx="52.5"
+                      cy="52.5"
+                      r="50"
+                      fill="transparent"
+                      [attr.stroke-dashoffset]="
+                        3.14 * (100 - movie.vote_average * 10)
+                      "
+                      [attr.stroke-dasharray]="314"
+                      stroke-width="9"
+                      stroke-linecap="round"
+                      class="scale-[0.95]"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------------------------------------------------------------------popular--------------------------------------------------------------------------- -->
+  <div class="w-full h-fit">
+    <div class="flex flex-col w-full gap-4 h-1/2 md:rounded-t-2xl">
+      <div
+        class="flex items-center gap-4 px-4 py-2 w-fit h-fit md:pt-4 md:px-0 md:py-0"
+      >
+        <p
+          class="text-lg font-bold text-white border-b-4 border-red-600 md:text-xl"
+        >
+          What's Popular
+        </p>
+      </div>
+
+      <div
+        class="flex items-center w-full gap-6 overflow-auto md:h-96 max-md:py-4"
+      >
+        <div *ngFor="let movie of trending | async">
+          <div
+            [routerLink]="['/details', 'movie', movie.id]"
+            class="w-72 h-[22.5rem] overflow-hidden rounded-xl flex flex-col"
+          >
+            <img
+              src="{{ imageUrl }}/{{ movie.poster_path }}"
+              class="w-full h-[60%] object-cover"
+            />
+            <div
+              class="rounded-lg h-[40%] p-2 bg-gradient-to-r from-indigo-800 via-gray-800 to-gray-900 flex flex-col"
+            >
+              <div>
+                <h5
+                  class="h-12 overflow-hidden text-2xl font-bold leading-none text-white text-ellipsis"
+                >
+                  {{ movie.title }}
+                </h5>
+                <span class="text-xs leading-none text-gray-400"
+                  >Rating-{{ movie.vote_average }}</span
+                >
+              </div>
+              <div class="flex items-center justify-between w-full h-fit">
+                <div class="text-lg font-light text-white">
+                  {{ movie.release_date }}
+                </div>
+                <div class="relative font-bold text-white">
+                  <p class="absolute top-3 right-2"></p>
+                  <svg
+                    class="rotate-[-90deg]"
+                    width="47px"
+                    height="47px"
+                    viewBox="0 0 100 100"
+                  >
+                    <circle
+                      cx="52.5"
+                      cy="52.5"
+                      r="50"
+                      fill="transparent"
+                      [attr.stroke-dasharray]="314"
+                      stroke-width="9"
+                      class="scale-[0.95]"
+                    />
+                    <circle
+                      cx="52.5"
+                      cy="52.5"
+                      r="50"
+                      fill="transparent"
+                      [attr.stroke-dashoffset]="
+                        3.14 * (100 - movie.vote_average * 10)
+                      "
+                      [attr.stroke-dasharray]="314"
+                      stroke-width="9"
+                      stroke-linecap="round"
+                      class="scale-[0.95]"
+                    />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

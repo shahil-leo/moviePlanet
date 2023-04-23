@@ -1,24 +1,24 @@
 <div
-  class="w-full h-full bg-gray-800 md:bg-gray-900 px-2 md:mt-16"
+  class="w-full h-full px-2 bg-gray-800 md:bg-gray-900 md:mt-16"
   (click)="onSidebar(onSide)"
 >
-  <p class="text-purple-600 text-xl px-10 py-4">News Feed</p>
+  <p class="px-10 py-4 text-xl text-purple-600">News Feed</p>
   <div
-    class="flex flex-col text-xl text-gray-100 md:h-52 h-48 border-b items-center"
+    class="flex flex-col items-center h-48 text-xl text-gray-100 border-b md:h-52"
   >
     <div
-      class="flex h-12 w-44 items-center gap-4 justify-start cursor-pointer"
+      class="flex items-center justify-start h-12 gap-4 cursor-pointer w-44"
       routerLink="/"
     >
       <a href="#" class="fa-solid fa-globe"></a>
       <p>Home</p>
     </div>
-    <div class="flex h-12 w-44 items-center justify-start gap-3 cursor-pointer">
+    <div class="flex items-center justify-start h-12 gap-3 cursor-pointer w-44">
       <a href="#" class="fa-solid fa-heart"></a>
       <p>Watchlist</p>
     </div>
     <button
-      class="flex h-12 w-44 items-center justify-start gap-3 whitespace-nowrap cursor-pointer"
+      class="flex items-center justify-start h-12 gap-3 cursor-pointer w-44 whitespace-nowrap"
       (click)="onUpcoming()"
       [routerLink]="['/details', 'movie', '123']"
     >
@@ -26,13 +26,13 @@
       <p>Coming Soon</p>
     </button>
   </div>
-  <p class="text-purple-600 text-xl px-10 py-4">Following</p>
+  <p class="px-10 py-4 text-xl text-purple-600">Following</p>
   <div
     class="flex flex-col md:gap-4 text-white text-xl items-start pl-6 md:h-[31rem] h-56 overflow-auto"
   >
     <div *ngFor="let user of users | async">
       <div
-        class="flex h-12 w-44 items-center justify-start md:gap-4 gap-2 cursor-pointer"
+        class="flex items-center justify-start h-12 gap-2 cursor-pointer w-44 md:gap-4"
       >
         <img
           src="https://api.dicebear.com/6.x/initials/svg?seed={{
@@ -45,7 +45,7 @@
       </div>
     </div>
     <div
-      class="flex w-fit h-fit justify-center items-center gap-2 pt-2 md:pt-0 cursor-pointer"
+      class="flex items-center justify-center gap-2 pt-2 cursor-pointer w-fit h-fit md:pt-0"
     >
       <div
         class="w-[24px] h-[24px] bg-purple-600 rounded-full flex items-center justify-center pt-1"
@@ -57,7 +57,7 @@
   </div>
 
   <div
-    class="flex h-fit w-fit items-center justify-center text-white text-xl gap-2 md:pt-8 pt-6 pl-4 cursor-pointer"
+    class="flex items-center justify-center gap-2 pt-6 pl-4 text-xl text-white cursor-pointer h-fit w-fit md:pt-8"
   >
     <i class="fa-solid fa-arrow-right-from-bracket"></i>
     <p>Log Out</p>
