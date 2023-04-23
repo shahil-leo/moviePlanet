@@ -5,6 +5,7 @@ import { User, Users } from '../modals/user';
 import { Observable, map } from 'rxjs';
 import { Movies } from '../modals/trending';
 import { PopularMovies, popular } from '../models/popular-movies';
+import { Search, searchMovie } from '../models/search';
 @Injectable({
   providedIn: 'root'
 })
@@ -29,6 +30,16 @@ export class TmdbService {
   getPopular(): Observable<popular[]> {
     return this.http.get<PopularMovies>(`${this.base_url}/movie/popular`,
       { params: { api_key: this.api_key } }).pipe(map(res => res.results))
+  }
+
+  searchMovie(searchMovie: any): Observable<searchMovie[]> {
+    return this.http.get<Search>(`${this.base_url}/search/movie`, {
+      params: {
+        api_key: this.api_key,
+        query: searchMovie
+      }
+    }).pipe(map(res => res.results))
+
   }
 
 }

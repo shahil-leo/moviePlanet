@@ -18,6 +18,7 @@ export class NavbarComponent {
   constructor(private route: ActivatedRoute) {
     this.imageValue = this.route.params
     console.log(this.imageValue)
+
   }
   onClick(value: boolean) {
     this.onTrue = !value
