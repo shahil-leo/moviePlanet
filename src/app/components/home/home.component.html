@@ -95,6 +95,12 @@
                 >
                   {{ movie.title }}
                 </h5>
+                <h5
+                  *ngIf="movie.name"
+                  class="h-12 overflow-hidden text-2xl font-bold leading-none text-white text-ellipsis"
+                >
+                  {{ movie.name }}
+                </h5>
 
                 <span class="text-xs leading-none text-gray-400"
                   >Rating-{{ movie.vote_average }}</span
