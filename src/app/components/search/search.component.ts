@@ -20,10 +20,11 @@ export class SearchComponent implements OnInit {
   ) { }
   imageUrl: string = 'https://image.tmdb.org/t/p/w500/';
 
-
   ngOnInit(): void {
     this.$search = this.route.params.pipe(switchMap(param => this.service.searchMovie(param['id'])))
   }
+
+  // there are two observables in the route params is a observable and the service search movie is also a observable so we have to use the switchMap to perform two observables
 
 
 }

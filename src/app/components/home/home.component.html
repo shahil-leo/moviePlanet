@@ -9,7 +9,7 @@
         <ng-container *ngFor="let movie of trending | async">
           <ng-template class="slide" carouselSlide>
             <img
-              src="{{ imageUrl }}/{{ movie.poster_path }}"
+              src="{{ imageUrl1 }}/{{ movie.poster_path }}"
               class="md:w-full md:h-[30rem] opacity-70 object-cover"
             />
             <p
@@ -40,10 +40,12 @@
 
     <div
       class="flex flex-col w-full gap-4 h-1/2 md:rounded-t-2xl"
-      *ngIf="$times | async as times"
+      *ngIf="{
+        time: $times | async,
+        show: $show | async
+      } as filter"
     >
       <div
-        *ngIf="$show | async as show"
         class="flex items-center w-full gap-4 px-4 py-2 overflow-auto md:w-fit md:h-fit h-fit md:pt-4 md:px-0 md:py-1"
       >
         <p
@@ -52,26 +54,31 @@
           Trending
         </p>
         <button
-          (click)="onClick(times === 'week' ? 'day' : 'week')"
+          (click)="onClick(filter.time === 'week' ? 'day' : 'week')"
           class="relative flex items-center justify-between px-4 font-bold text-gray-100 rounded-full bg-gray-950 md:w-56 w-44 h-9"
         >
           <span class="z-30">Today</span>
           <span class="z-30">This week</span>
           <span
             class="md:w-28 w-[5.5rem] h-9 rounded-full absolute top-0 left-0 bg-purple-600/75 transition-all"
+            [ngClass]="{
+              'md:translate-x-28': filter.time === 'week',
+              'translate-x-[5.3rem]': filter.time === 'week'
+            }"
           ></span>
         </button>
         <button
-          (click)="onShow(show === 'tv' ? 'movie' : 'tv')"
+          (click)="onShow(filter.show === 'tv' ? 'movie' : 'tv')"
           class="flex items-center justify-center font-bold text-white rounded-md bg-purple-600/75 md:w-28 w-14 h-9 md:rounded-3xl"
         >
-          {{ show }}
+          {{ filter.show }}
         </button>
       </div>
 
       <div class="flex items-center w-full gap-6 overflow-auto md:h-96">
         <div *ngFor="let movie of trending | async">
           <div
+            [routerLink]="['/details', filter.show, movie.id]"
             class="w-72 h-[22.5rem] overflow-hidden rounded-xl flex flex-col"
           >
             <img

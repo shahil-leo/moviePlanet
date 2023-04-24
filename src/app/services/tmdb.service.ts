@@ -6,6 +6,7 @@ import { Observable, map } from 'rxjs';
 import { Movies } from '../modals/trending';
 import { PopularMovies, popular } from '../models/popular-movies';
 import { Search, searchMovie } from '../models/search';
+import { MovieDetails } from '../models/details';
 @Injectable({
   providedIn: 'root'
 })
@@ -40,6 +41,14 @@ export class TmdbService {
       }
     }).pipe(map(res => res.results))
 
+  }
+
+  movieDetails(id: string, show: 'movie' | 'tv'): Observable<MovieDetails> {
+    return this.http.get<MovieDetails>(`${this.base_url}/${show}/${id}`, {
+      params: {
+        api_key: this.api_key
+      }
+    }).pipe(map(res => res))
   }
 
 }

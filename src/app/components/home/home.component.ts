@@ -17,7 +17,7 @@ export class HomeComponent {
   imageUrl1: string = 'https://image.tmdb.org/t/p/original/';
 
   $times = new BehaviorSubject<'day' | 'week'>('day')
-  $show = new BehaviorSubject<'tv' | 'movie'>('tv')
+  $show = new BehaviorSubject<'tv' | 'movie'>('movie')
   filter = combineLatest({
     time: this.$times,
     show: this.$show
